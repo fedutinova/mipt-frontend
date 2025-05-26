@@ -1,9 +1,9 @@
+import { useFavorites } from '../context/FavoritesContext.jsx';
 import { useState } from 'react';
-import { Box, Flex, Heading, SimpleGrid, Text, Checkbox } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Text, Checkbox  } from '@chakra-ui/react';
 import { FaCheck } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import { MovieCard } from '../components/MovieCard';
-
 import { movies, moviePosters } from '../data/movies';
 import { genres } from '../data/genres';
 
@@ -34,16 +34,8 @@ const GenreCheckbox = ({ genre, isChecked, onChange }) => (
 );
 
 const Home = () => {
+  const { favorites, toggleFavorite } = useFavorites();
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-
-  const toggleFavorite = (movieId) => {
-    setFavorites((prev) =>
-      prev.includes(movieId)
-        ? prev.filter((id) => id !== movieId)
-        : [...prev, movieId]
-    );
-  };
 
   const toggleGenre = (genreId) => {
     setSelectedGenres((prev) =>
@@ -80,13 +72,13 @@ const Home = () => {
           </Flex>
         </Flex>
 
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 3 }} spacing={20}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={10}>
           {filteredMovies.map((movie) => (
             <MovieCard
               key={movie.id}
               movie={movie}
               poster={moviePosters[movie.title]}
-              isFavorite={favorites.includes(movie.id)}
+              isFavorite={Array.isArray(favorites) && favorites.includes(movie.id)}
               onToggleFavorite={() => toggleFavorite(movie.id)}
             />
           ))}
