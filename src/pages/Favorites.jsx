@@ -14,13 +14,13 @@ import { useFavorites } from '../context/FavoritesContext';
 
 const Favorites = () => {
   const { favorites, toggleFavorite } = useFavorites();
-  const favoriteMovies = movies.filter((m) => favorites.includes(m.id));
+  const favoriteMovies = movies.filter((m) => Array.isArray(favorites) && favorites.includes(m.id));
 
   return (
     <Box bg="white" minH="100vh" display="flex" flexDirection="column">
       <Navbar />
 
-      <Box px={{ base: 4, md: 6 }} mx="auto" flex="1" mb={20} maxW="800px">
+      <Box px={{ base: 4, md: 6 }} ml={40} flex="1" mb={20} maxW="2000px" alignSelf="flex-start">
         <Text fontSize="3xl" fontWeight="bold" my={10}>
           Избранное
         </Text>
@@ -28,19 +28,19 @@ const Favorites = () => {
         {favoriteMovies.map((movie) => (
           <Box key={movie.id} mb={6}>
             <Flex align="center" justify="space-between">
-              <Flex align="center" gap={4}>
+              <Flex align="center" gap={4} flex="1.5">
                 <Image
                   src={moviePosters[movie.title]}
                   alt={movie.title}
-                  boxSize="64px"
+                  boxSize=  "100px"
                   borderRadius="full"
                   objectFit="cover"
                 />
-                <Box>
+                <Box ml={8}>
                   <Text fontWeight="medium" fontSize="lg">
                     {movie.title}
                   </Text>
-                  <Flex align="center" mt={1} color="gray.600">
+                  <Flex align="center" mt={6} color="gray.600">
                     <Icon as={FaRegClock} mr={2} />
                     <Text>{movie.duration}</Text>
                   </Flex>
@@ -51,6 +51,7 @@ const Favorites = () => {
                 color="gray.500"
                 fontWeight="normal"
                 onClick={() => toggleFavorite(movie.id)}
+                ml={80}
               >
                 Удалить
               </Button>
