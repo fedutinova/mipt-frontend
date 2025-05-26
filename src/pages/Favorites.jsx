@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { FaRegClock } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
-import { moviePosters, movies } from '../data/movies';
+import { movies } from '../data/movies';
 import { useFavorites } from '../context/FavoritesContext';
 
 const Favorites = () => {
@@ -31,7 +31,7 @@ const Favorites = () => {
             <Flex align="center" justify="space-between">
               <Flex align="center" gap={4} flex="1.5">
                 <Image
-                  src={moviePosters[movie.title]}
+                  src={movie.imageUrl}
                   alt={movie.title}
                   boxSize=  "100px"
                   borderRadius="full"

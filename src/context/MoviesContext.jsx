@@ -1,19 +1,29 @@
 import { createContext, useContext, useState } from 'react';
-import { movies as initialMovies, moviePosters as initialPosters } from '../data/movies';
+import { movies as initialMovies } from '../data/movies';
 
 const MoviesContext = createContext();
 
 export const MoviesProvider = ({ children }) => {
-  const [movies, setMovies] = useState(initialMovies);
-  const [moviePosters, setMoviePosters] = useState(initialPosters);
+  const [movies, setMovies] = useState(
+    initialMovies.map((movie) => ({
+      ...movie,
+      imageUrl: movie.imageUrl,
+    }))
+  );
 
-  const addMovie = (newMovie, imageUrl) => {
+  const addMovie = (movie, imageUrl) => {
+    const newMovie = { ...movie, imageUrl };
     setMovies((prev) => [...prev, newMovie]);
-    setMoviePosters((prev) => ({ ...prev, [newMovie.title]: imageUrl }));
+  };
+
+  const updateMovie = (updatedMovie) => {
+    setMovies((prev) =>
+      prev.map((m) => (m.id === updatedMovie.id ? { ...m, ...updatedMovie } : m))
+    );
   };
 
   return (
-    <MoviesContext.Provider value={{ movies, addMovie, moviePosters }}>
+    <MoviesContext.Provider value={{ movies, addMovie, updateMovie }}>
       {children}
     </MoviesContext.Provider>
   );

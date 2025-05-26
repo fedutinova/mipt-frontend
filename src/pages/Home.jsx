@@ -9,7 +9,7 @@ import { GenreCheckbox } from '../components/GenreCheckbox';
 
 const Home = () => {
   const { favorites, toggleFavorite } = useFavorites();
-  const { movies, moviePosters } = useMovies();
+  const { movies } = useMovies();
   const [selectedGenres, setSelectedGenres] = useState([]);
 
   const toggleGenre = (genreId) => {
@@ -52,7 +52,7 @@ const Home = () => {
             <MovieCard
               key={movie.id}
               movie={movie}
-              poster={moviePosters[movie.title]}
+              poster={movie.imageUrl}
               isFavorite={Array.isArray(favorites) && favorites.includes(movie.id)}
               onToggleFavorite={() => toggleFavorite(movie.id)}
             />

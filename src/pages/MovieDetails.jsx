@@ -9,6 +9,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { FaRegClock, FaStar, FaRegStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useFavorites } from '../context/FavoritesContext';
@@ -19,7 +20,7 @@ const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { favorites, toggleFavorite } = useFavorites();
-  const { movies, moviePosters } = useMovies();
+  const { movies } = useMovies();
 
   const movie = movies.find((m) => m.id === Number(id));
   if (!movie) return <Box p={10}>Фильм не найден</Box>;
@@ -32,7 +33,7 @@ const MovieDetails = () => {
 
       <Flex px={10} mt={10} mb={20} alignItems="flex-start" gap={10} maxW="1000px" mx="auto">
         <Image
-          src={moviePosters[movie.title]}
+          src={movie.imageUrl}
           alt={movie.title}
           objectFit="cover"
           borderRadius="lg"
@@ -68,7 +69,7 @@ const MovieDetails = () => {
           </Text>
 
           <Flex mt={10} gap={4}>
-            <Button colorScheme="blue" variant="outline">
+            <Button as={Link} to={`/edit/${movie.id}`} colorScheme="blue" variant="outline">
               Редактировать
             </Button>
             <Button colorScheme="red" variant="ghost">
