@@ -1,34 +1,43 @@
-// components/Navbar.jsx
-import { Flex, Box, Text, Button } from '@chakra-ui/react';
+import { Flex, Text, Link as ChakraLink } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
+
+const navItems = [
+  { label: 'Все фильмы', path: '/' },
+  { label: 'Избранное', path: '/favorites' },
+  { label: 'Добавить фильм', path: '/add' },
+];
+
+const linkStyles = {
+  mr: 6,
+  fontWeight: 'medium',
+  fontSize: 'lg',
+  _hover: { color: 'blue.400' },
+};
 
 const Navbar = () => {
   return (
-    <Flex 
+    <Flex
+      as="nav"
       bg="white"
       p={4}
-      boxShadow="sm"
-      justifyContent="space-between"
       alignItems="center"
-      borderBottom="1px solid"
-      borderColor="whiteAlpha.300"
       position="sticky"
       top={0}
       zIndex={1000}
       width="100%"
       maxWidth="1250px"
-      margin="0 auto"
-      borderRadius="md"
-      _hover={{ boxShadow: 'md' }}
-      transition="box-shadow 0.2s ease-in-out"
-      _active={{ boxShadow: 'lg' }}
-      _focus={{ boxShadow: 'lg' }}
-
     >
-      <Box>
-        <Text display="inline-block" color="blue" mr={8}>Все фильмы</Text>
-        <Text display="inline-block" mr={4}>Избранное</Text>
-        <Text display="inline-block" mr={4}>Добавить фильм</Text>
-      </Box>
+      {navItems.map(({ label, path }) => (
+        <ChakraLink
+          as={NavLink}
+          to={path}
+          key={path}
+          {...linkStyles}
+          _activeLink={{ color: 'blue.500', borderBottom: '2px solid blue.500' }}
+        >
+          {label}
+        </ChakraLink>
+      ))}
     </Flex>
   );
 };

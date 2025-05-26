@@ -1,26 +1,18 @@
 import React from 'react'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 
-const theme = extendTheme({
-  colors: {
-    genres: {
-      action: '#FF5252',    // Боевик
-      thriller: '#9C27B0',  // Триллер
-      comedy: '#FFC107',    // Комедия
-      drama: '#2196F3',     // Драма
-    },
-  },
-})
+// import About from './pages/About' // пример дополнительной страницы
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box minH="100vh" bg="gray.100" py={10}>
-        <Home />
-      </Box>
-    </ChakraProvider>
+    <Box minH="100vh" bg="gray.100" py={10}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/about" element={<About />} /> */}
+      </Routes>
+    </Box>
   )
 }
 
