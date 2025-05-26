@@ -25,8 +25,10 @@ const Navbar = () => {
       top={0}
       zIndex={1000}
       width="100%"
-      maxWidth="1250px"
     >
+      <Flex
+      ml={40}
+      > </Flex>
       {navItems.map(({ label, path }) => (
         <ChakraLink
           as={NavLink}

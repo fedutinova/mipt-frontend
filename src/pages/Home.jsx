@@ -1,40 +1,15 @@
 import { useFavorites } from '../context/FavoritesContext.jsx';
+import { useMovies } from '../context/MoviesContext.jsx';
 import { useState } from 'react';
-import { Box, Flex, Heading, SimpleGrid, Text, Checkbox  } from '@chakra-ui/react';
-import { FaCheck } from 'react-icons/fa';
+import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import { MovieCard } from '../components/MovieCard';
-import { movies, moviePosters } from '../data/movies';
 import { genres } from '../data/genres';
-
-const GenreCheckbox = ({ genre, isChecked, onChange }) => (
-  <Checkbox
-  isChecked={isChecked}
-  onChange={onChange}
-  size="lg"
-  spacing="0.5rem"
-  sx={{
-    display: 'flex',
-    alignItems: 'center',
-    '.chakra-checkbox__control': {
-      borderRadius: 'full',
-      width: '25px',
-      height: '25px',
-      bg: isChecked ? `genres.${genre.id}` : 'white',
-      borderColor: `genres.${genre.id}`,
-      _checked: {
-        bg: `genres.${genre.id}`,
-        borderColor: `genres.${genre.id}`,
-      },
-    },
-  }}
->
-  <Text fontSize="lg">{genre.name}</Text>
-</Checkbox>
-);
+import { GenreCheckbox } from '../components/GenreCheckbox';
 
 const Home = () => {
   const { favorites, toggleFavorite } = useFavorites();
+  const { movies, moviePosters } = useMovies();
   const [selectedGenres, setSelectedGenres] = useState([]);
 
   const toggleGenre = (genreId) => {
@@ -54,21 +29,21 @@ const Home = () => {
     <Box bg="white" minH="100vh" display="flex" flexDirection="column">
       <Navbar />
 
-      <Box px={{ base: 4, md: 6 }} mx="auto" flex="1" mb={20}>
+      <Box px={{ base: 4, md: 6 }} mx="40" flex="1" mb={20}>
         <Flex justify="space-between" align="center" flexWrap="wrap" gap={4} mt={10} mb={6}>
           <Heading as="h1" fontSize="40px" fontWeight="800">
             Фильмы
           </Heading>
 
           <Flex gap={4} wrap="wrap" justify="flex-end">
-            {genres.map((genre) => (
-              <GenreCheckbox
-                key={genre.id}
-                genre={genre}
-                isChecked={selectedGenres.includes(genre.id)}
-                onChange={() => toggleGenre(genre.id)}
-              />
-            ))}
+          {genres.map((genre) => (
+            <GenreCheckbox
+              key={genre.id}
+              genre={genre}
+              isChecked={selectedGenres.includes(genre.id)}
+              onChange={() => toggleGenre(genre.id)}
+            />
+          ))}
           </Flex>
         </Flex>
 
@@ -85,8 +60,8 @@ const Home = () => {
         </SimpleGrid>
       </Box>
 
-      <Box bg="black" color="white" py={8} textAlign="left" px={{ base: 4, md: 6 }}>
-        <Text fontSize="lg">Фильмограф</Text>
+      <Box bg="black" color="white" py={8} px={{ base: 4, md: 6 }}>
+        <Text fontSize="lg" ml={40}>Фильмограф</Text>
       </Box>
     </Box>
   );

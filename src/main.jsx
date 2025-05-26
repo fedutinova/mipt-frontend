@@ -5,16 +5,19 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import theme from './theme'
 import { FavoritesProvider } from './context/FavoritesContext.jsx'
+import { MoviesProvider } from './context/MoviesContext.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <FavoritesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </FavoritesProvider>
+      <MoviesProvider>
+        <FavoritesProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </FavoritesProvider>
+      </MoviesProvider>
     </ChakraProvider>
   </React.StrictMode>
 )

@@ -6,6 +6,7 @@ import {
   Icon,
   Button,
   Divider,
+  Heading,
 } from '@chakra-ui/react';
 import { FaRegClock } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
@@ -20,10 +21,10 @@ const Favorites = () => {
     <Box bg="white" minH="100vh" display="flex" flexDirection="column">
       <Navbar />
 
-      <Box px={{ base: 4, md: 6 }} ml={40} flex="1" mb={20} maxW="2000px" alignSelf="flex-start">
-        <Text fontSize="3xl" fontWeight="bold" my={10}>
-          Избранное
-        </Text>
+      <Box px={{ base: 4, md: 6 }} ml={40} flex="1" mb={40} maxW="1200px" alignSelf="flex-start">
+        <Heading as="h1" fontSize="40px" fontWeight="800" my={10}>
+            Избранное
+        </Heading>
 
         {favoriteMovies.map((movie) => (
           <Box key={movie.id} mb={6}>
@@ -62,7 +63,7 @@ const Favorites = () => {
       </Box>
 
       <Box bg="black" color="white" py={8} px={{ base: 4, md: 6 }}>
-        <Text fontSize="lg">Фильмограф</Text>
+        <Text fontSize="lg" ml={40}>Фильмограф</Text>
       </Box>
     </Box>
   );
