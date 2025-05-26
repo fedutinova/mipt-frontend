@@ -1,6 +1,7 @@
 import { Box, Flex, Button, Icon, Text, Image } from '@chakra-ui/react';
 import { FaStar, FaRegStar, FaRegClock } from 'react-icons/fa';
 import { genres } from '../data/genres';
+import { Link } from 'react-router-dom';
 
 export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
   const genre = genres.find(g => g.id === movie.genre);
@@ -16,7 +17,9 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
       overflow="hidden"
       position="relative"
     >
+      <Link to={`/movie/${movie.id}`}>
       <Box position="relative">
+        
         <Image
           src={poster || 'https://via.placeholder.com/300x450?text=No+Image'}
           alt={movie.title}
@@ -60,6 +63,7 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
           </Flex>
         </Flex>
       </Box>
+      </Link>
     </Box>
   );
 };

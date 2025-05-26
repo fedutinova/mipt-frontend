@@ -118,7 +118,7 @@ const AddMovie = () => {
       </Box>
 
       <Box bg="black" color="white" py={8} px={{ base: 4, md: 6 }} mt="auto">
-        <Text fontSize="lg">Фильмограф</Text>
+        <Text fontSize="lg" ml={40}>Фильмограф</Text>
       </Box>
     </Box>
   );

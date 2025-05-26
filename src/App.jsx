@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Favorites from './pages/Favorites'
 import AddMovie from './pages/AddMovie'
+import MovieDetails from './pages/MovieDetails'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/add" element={<AddMovie />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </Box>
   )
