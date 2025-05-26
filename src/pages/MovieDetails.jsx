@@ -20,10 +20,15 @@ const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { favorites, toggleFavorite } = useFavorites();
-  const { movies } = useMovies();
+  const { deleteMovie, movies } = useMovies();
 
   const movie = movies.find((m) => m.id === Number(id));
   if (!movie) return <Box p={10}>Фильм не найден</Box>;
+
+  const handleDelete = () => {
+    deleteMovie(movie.id);
+    navigate('/');
+  };
 
   const genreName = genres.find((g) => g.id === movie.genre)?.name;
 
@@ -72,7 +77,7 @@ const MovieDetails = () => {
             <Button as={Link} to={`/edit/${movie.id}`} colorScheme="blue" variant="outline">
               Редактировать
             </Button>
-            <Button colorScheme="red" variant="ghost">
+            <Button colorScheme="red" onClick={handleDelete}>
               Удалить
             </Button>
           </Flex>
