@@ -1,8 +1,37 @@
 import { useState } from 'react';
-import { Box, Flex, Heading, Grid, Button, Checkbox, Icon, Text, GridItem } from '@chakra-ui/react';
-import { FaStar, FaRegStar, FaClock } from 'react-icons/fa';
+import { Box, Flex, Heading, SimpleGrid, GridItem, Checkbox, Text} from '@chakra-ui/react';
+import { FaCheck } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import { MovieCard } from '../components/MovieCard'
+
+const GenreCheckbox = ({ genre, isChecked, onChange }) => {
+  return (
+    <Checkbox
+      isChecked={isChecked}
+      onChange={onChange}
+      icon={<FaCheck color="white" />}
+      size="lg"
+      spacing="0.5rem"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        '.chakra-checkbox__control': {
+          borderRadius: "full",
+          width: "25px",
+          height: "25px",
+          bg: isChecked ? `genres.${genre.id}` : "white",
+          borderColor: `genres.${genre.id}`,
+          _checked: {
+            bg: `genres.${genre.id}`,
+            borderColor: `genres.${genre.id}`,
+          },
+        },
+      }}
+    >
+      <Text fontSize="lg">{genre.name}</Text>
+    </Checkbox>
+  );
+};
 
 const Home = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -27,6 +56,18 @@ const Home = () => {
     { id: 'drama', name: 'Драма' },
   ];
 
+  const moviePosters = {
+  'Матрица': 'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg',
+  'Отступники': 'https://m.media-amazon.com/images/M/MV5BMTI1MTM2MTI0MF5BMl5BanBnXkFtZTYwMjQ1NjY3._V1_.jpg',
+  'Предложение': 'https://m.media-amazon.com/images/M/MV5BOGM5YWU2N2QtYjVhZi00MzYyLTk0ODctYmVlNDZlMjI5MWQzXkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_.jpg',
+  'Безумный Макс': 'https://m.media-amazon.com/images/M/MV5BMTEyODQzNDkzNjVeQTJeQWpwZ15BbWU4MDQwODExMDEx._V1_.jpg',
+  'Гладиатор': 'https://m.media-amazon.com/images/M/MV5BMDliMmNhNDEtODUyOS00MjNlLTgxODEtN2U3NzIxMGVkZTA1L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg',
+  'Малышка на миллион': 'https://m.media-amazon.com/images/M/MV5BMTkxNzA1NDQxOV5BMl5BanBnXkFtZTcwNTkyMTIzMw@@._V1_.jpg',
+  'Джентельмены': 'https://m.media-amazon.com/images/M/MV5BMTlkMmVmYjktYTc2NC00ZGZjLWEyOWUtMjc2MDMwMjQwOTA5XkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_.jpg',
+  'Однажды в Голливуде': 'https://m.media-amazon.com/images/M/MV5BOTg4ZTNkZmUtMzNlZi00YmFjLTk1MmUtNWQwNTM0YjcyNTNkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg',
+  'Ларри Краун': 'https://m.media-amazon.com/images/M/MV5BMTk3NDM4NTI1OV5BMl5BanBnXkFtZTcwNjQ1MjY3NA@@._V1_.jpg'
+};
+
   const toggleFavorite = (movieId) => {
     setFavorites(prev =>
       prev.includes(movieId)
@@ -48,55 +89,54 @@ const Home = () => {
     : movies.filter(movie => selectedGenres.includes(movie.genre));
 
   return (
-    <Box bg="gray.50" minH="100vh" display="flex" flexDirection="column">
+    <Box bg="white" minH="100vh" display="flex" flexDirection="column">
       <Navbar />
       
-      <Box p={6} maxW="1200px" mx="auto" flex="1">
-        <Heading as="h1" fontSize="32px" mb={6} fontWeight="800">Фильмы</Heading>
-        
-        {/* Фильтры по жанрам */}
-        <Flex gap={4} mb={8} wrap="wrap">
+      <Box px={{ base: 4, md: 6 }} mx="auto" flex="1" mb={20}>
+        <Flex
+          justify="space-between"
+          align="center"
+          flexWrap="wrap"
+          gap={4}
+          mt={10}
+          mb={6}
+        >
+        <Heading as="h1" fontSize="40px" fontWeight="800">
+        Фильмы
+        </Heading>
+
+        <Flex gap={4} wrap="wrap" justify="flex-end">
           {genres.map((genre) => (
-            <Checkbox
+          <GenreCheckbox
               key={genre.id}
-              isChecked={selectedGenres.includes(genre.id)}
-              onChange={() => toggleGenre(genre.id)}
-              colorScheme={genre.id}
-              spacing="1rem"
-              size="lg"
-            >
-              {genre.name}
-            </Checkbox>
+            genre={genre}
+            isChecked={selectedGenres.includes(genre.id)}
+            onChange={() => toggleGenre(genre.id)}
+          />
           ))}
         </Flex>
+        </Flex>
+
         
         {/* Список фильмов */}
-        <Grid 
-          templateColumns="repeat(3, 1fr)" 
-          gap={6}
-          sx={{
-            '@media (max-width: 900px)': {
-              templateColumns: 'repeat(2, 1fr)',
-            },
-            '@media (max-width: 600px)': {
-              templateColumns: '1fr',
-            },
-          }}
-        >
-          {filteredMovies.map(movie => (
-            <GridItem key={movie.id}>
+         <SimpleGrid
+            columns={{ base: 1, sm: 2, md: 3, lg: 3 }}
+            spacing={20}
+            px={{ base: 2, md: 0 }}
+          >
+            {filteredMovies.map(movie => (
               <MovieCard
+                key={movie.id}
                 movie={movie}
+                poster={moviePosters[movie.title]}
                 isFavorite={favorites.includes(movie.id)}
                 onToggleFavorite={() => toggleFavorite(movie.id)}
               />
-            </GridItem>
-          ))}
-        </Grid>
+            ))}
+          </SimpleGrid>
       </Box>
       
-      {/* Футер */}
-      <Box bg="black" color="white" py={4} textAlign="center">
+      <Box bg="black" color="white" py={8} textAlign="left" px={{ base: 4, md: 6 }}>
         <Text fontSize="lg">Фильмограф</Text>
       </Box>
     </Box>

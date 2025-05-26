@@ -4,17 +4,6 @@ import { Box } from '@chakra-ui/react'
 import Home from './pages/Home'
 
 const theme = extendTheme({
-  // fonts: {
-  //   heading: 'Arial, sans-serif',
-  //   body: 'Arial, sans-serif',
-  // },
-  // components: {
-  //   Button: {
-  //     baseStyle: {
-  //       borderRadius: '20px',
-  //     },
-  //   },
-  // },
   colors: {
     genres: {
       action: '#FF5252',    // Боевик
@@ -28,7 +17,7 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box minH="100vh" bg="gray.100">
+      <Box minH="100vh" bg="gray.100" py={10}>
         <Home />
       </Box>
     </ChakraProvider>

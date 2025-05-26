@@ -10,21 +10,25 @@ const Navbar = () => {
       justifyContent="space-between"
       alignItems="center"
       borderBottom="1px solid"
-      borderColor="gray.200"
+      borderColor="whiteAlpha.300"
+      position="sticky"
+      top={0}
+      zIndex={1000}
+      width="100%"
+      maxWidth="1250px"
+      margin="0 auto"
+      borderRadius="md"
+      _hover={{ boxShadow: 'md' }}
+      transition="box-shadow 0.2s ease-in-out"
+      _active={{ boxShadow: 'lg' }}
+      _focus={{ boxShadow: 'lg' }}
+
     >
       <Box>
-        <Text fontWeight="bold" display="inline-block" mr={8}>Главная</Text>
-        <Text display="inline-block" mr={4}>Все фильмы</Text>
+        <Text display="inline-block" color="blue" mr={8}>Все фильмы</Text>
         <Text display="inline-block" mr={4}>Избранное</Text>
+        <Text display="inline-block" mr={4}>Добавить фильм</Text>
       </Box>
-      
-      <Button 
-        colorScheme="blue" 
-        size="sm"
-        borderRadius="full"
-      >
-        Добавить фильм
-      </Button>
     </Flex>
   );
 };
