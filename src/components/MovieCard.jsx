@@ -27,30 +27,16 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
           h="192px"
           w="100%"
         />
-
-        {/* Кнопка "избранное" поверх изображения */}
-        <Button
-          position="absolute"
-          top={2}
-          right={2}
-          variant="ghost"
-          p={1}
-          onClick={onToggleFavorite}
-        >
-          <Icon
-            as={isFavorite ? FaStar : FaRegStar}
-            color="yellow.400"
-            boxSize={5}
-          />
-        </Button>
       </Box>
-
+      </Link>
       <Box p={4}>
+        <Link to={`/movie/${movie.id}`}>
         <Text fontWeight="bold" fontSize="xl" mb={2}>
           {movie.title}
         </Text>
-
+        </Link>
         <Flex align="center" justify="space-between">
+          <Link to={`/movie/${movie.id}`}>
           <Box bg={genreColor} px={3} py={1} borderRadius="full">
             <Text fontSize="sm" color="white" fontWeight="medium">
               {genre.name}
@@ -61,9 +47,20 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
             <Icon as={FaRegClock} mr={1} />
             <Text fontSize="md">{movie.duration}</Text>
           </Flex>
+        </Link>
+          <Button
+            variant="ghost"
+            onClick={onToggleFavorite}
+          >
+            <Icon
+              as={isFavorite ? FaStar : FaRegStar}
+              color="yellow.400"
+              boxSize={6}
+            />
+          </Button>
         </Flex>
       </Box>
-      </Link>
+      
     </Box>
   );
 };
