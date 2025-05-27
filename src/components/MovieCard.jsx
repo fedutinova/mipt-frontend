@@ -17,6 +17,22 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
       overflow="hidden"
       position="relative"
     >
+      <Button
+        variant="ghost"
+        position="absolute"
+        top={243}
+        right={2}
+        zIndex={2}
+        onClick={(e) => {
+          onToggleFavorite();
+        }}
+      >
+      <Icon
+        as={isFavorite ? FaStar : FaRegStar}
+        color="yellow.400"
+        boxSize={6}
+      />
+      </Button>
       <Link to={`/movie/${movie.id}`}>
       <Box position="relative">
         
@@ -28,15 +44,11 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
           w="100%"
         />
       </Box>
-      </Link>
       <Box p={4}>
-        <Link to={`/movie/${movie.id}`}>
         <Text fontWeight="bold" fontSize="xl" mb={2}>
           {movie.title}
         </Text>
-        </Link>
         <Flex align="center" justify="space-between">
-          <Link to={`/movie/${movie.id}`}>
           <Box bg={genreColor} px={3} py={1} borderRadius="full">
             <Text fontSize="sm" color="white" fontWeight="medium">
               {genre.name}
@@ -47,20 +59,10 @@ export const MovieCard = ({ movie, poster, isFavorite, onToggleFavorite }) => {
             <Icon as={FaRegClock} mr={1} />
             <Text fontSize="md">{movie.duration}</Text>
           </Flex>
-        </Link>
-          <Button
-            variant="ghost"
-            onClick={onToggleFavorite}
-          >
-            <Icon
-              as={isFavorite ? FaStar : FaRegStar}
-              color="yellow.400"
-              boxSize={6}
-            />
-          </Button>
+          <Button variant="ghost"/>
         </Flex>
       </Box>
-      
+      </Link>
     </Box>
   );
 };
